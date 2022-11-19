@@ -1,4 +1,6 @@
-import Header from "../components/Header";
+import { Categories } from "../components/Categories";
+import { Header } from "../components/Header";
+import { Menu } from "../components/Menu";
 import {
   Container,
   CategoriesContainer,
@@ -14,11 +16,11 @@ export default function Main() {
         <Header />
 
         <CategoriesContainer>
-
+          <Categories />
         </CategoriesContainer>
 
         <MenuContainer>
-
+          <Menu />
         </MenuContainer>
 
       </Container>
