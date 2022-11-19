@@ -14,11 +14,16 @@ import {
 interface TableModalProps {
   visible: boolean
   onClose: () => void
+  onSave: (table: string) => void
 }
 
-export default function TableModal({ visible, onClose }: TableModalProps) {
+export default function TableModal({ visible, onClose, onSave }: TableModalProps) {
   const [table, setTable] = useState("");
 
+  function handleSaveTable() {
+    onSave(table);
+    onClose();
+  }
   return (
     <Modal
       visible={visible}
@@ -44,7 +49,7 @@ export default function TableModal({ visible, onClose }: TableModalProps) {
 
             <Button
               disabled={table.length === 0}
-              onPress={() => alert(table)}
+              onPress={handleSaveTable}
             >
               Salvar
             </Button>
