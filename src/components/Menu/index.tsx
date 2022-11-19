@@ -24,12 +24,13 @@ export function Menu() {
             source={{
               uri: `http://192.168.15.8:3001/uploads/${product.imagePath}`
             }}
+
           />
           <ProductDetails>
             <Text weight="600">
               {product.name}
             </Text>
-            <Text size={14} color={"666"} style={{ marginVertical: 8 }}>
+            <Text size={14} color={"#666"} style={{ marginVertical: 8 }}>
               {product.description}
             </Text>
             <Text size={14} weight="600">
