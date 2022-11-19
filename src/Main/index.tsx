@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "../components/Button";
 import { Categories } from "../components/Categories";
 import { Header } from "../components/Header";
 import { Menu } from "../components/Menu";
+import TableModal from "../components/TableModal";
 import {
   Container,
   CategoriesContainer,
@@ -11,6 +13,7 @@ import {
 } from "./styles";
 
 export default function Main() {
+  const [IsTableModalVisible, setIsTableModalVisible] = useState(false);
   return (
     <>
       <Container>
@@ -27,11 +30,16 @@ export default function Main() {
       </Container>
       <Footer>
         <FooterContainer>
-          <Button onPress={() => { alert("novo pedido"); }}>
+          <Button onPress={() => { setIsTableModalVisible(true); }}>
             Novo Pedido
           </Button>
         </FooterContainer>
       </Footer>
+
+      <TableModal
+        visible={IsTableModalVisible}
+        onClose={() => setIsTableModalVisible(false)}
+      />
     </>
   );
 }
