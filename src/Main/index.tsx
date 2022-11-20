@@ -56,7 +56,6 @@ export default function Main() {
     setIsLoadingProducts(false);
   }
 
-
   function handleSaveTable(table: string) {
     setSelectedTable(table);
     setIsTableModalVisible(false);
@@ -116,7 +115,6 @@ export default function Main() {
           selectedTable={selectedTable}
           onCancelOrder={handleResetOrder}
         />
-
         {isLoading ? (
           <CenteredContainer>
             <ActivityIndicator color="#d73035" size={"large"} />
@@ -153,12 +151,8 @@ export default function Main() {
                 )}
               </>
             )}
-
-
-
           </>
         )}
-
       </Container>
       <Footer>
         <FooterContainer>
@@ -173,6 +167,7 @@ export default function Main() {
 
           {selectedTable && (
             <Cart
+              selectedTable={selectedTable}
               cartItems={cartItems}
               handleCartProductsAmount={handleCartProductsAmount}
               onConfirmOrder={handleResetOrder}
