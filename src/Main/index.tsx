@@ -25,7 +25,7 @@ export default function Main() {
     setIsTableModalVisible(false);
   }
 
-  function handleCancelOrder() {
+  function handleResetOrder() {
     setSelectedTable("");
     setCartItems([]);
   }
@@ -77,7 +77,7 @@ export default function Main() {
       <Container>
         <Header
           selectedTable={selectedTable}
-          onCancelOrder={handleCancelOrder}
+          onCancelOrder={handleResetOrder}
         />
 
         <CategoriesContainer>
@@ -101,6 +101,7 @@ export default function Main() {
             <Cart
               cartItems={cartItems}
               handleCartProductsAmount={handleCartProductsAmount}
+              onConfirmOrder={handleResetOrder}
             />
           )}
         </FooterContainer>

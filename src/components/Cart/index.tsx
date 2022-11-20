@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { CartItem } from "../../@types/CartItem";
 import { Product } from "../../@types/Product";
@@ -5,6 +6,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import { Button } from "../Button";
 import { MinusCircle } from "../Icons/MinusCircle";
 import { PlusCircle } from "../Icons/PlusCircle";
+import { OrderConfirmedModal } from "../OrderConfirmedModal";
 import { Text } from "../Text";
 import {
   ItemContainer,
@@ -20,17 +22,34 @@ import {
 interface CartProps {
   cartItems: CartItem[]
   handleCartProductsAmount: (product: Product, CartAction: "Add" | "Dec") => void
+  onConfirmOrder: () => void
 }
 
-export function Cart({ cartItems, handleCartProductsAmount }: CartProps) {
+export function Cart({ cartItems, handleCartProductsAmount, onConfirmOrder }: CartProps) {
+  const [isConfirmOrderModalVisible, setIsConfirmOrderModalVisible] = useState(false);
+
   const thereAreItemsInCart = cartItems.length > 0;
 
   const total = cartItems.reduce((acc, cartItem) => {
     return acc + cartItem.quantity * cartItem.product.price;
   }, 0);
 
+  function handleConfirmOrder() {
+    setIsConfirmOrderModalVisible(true);
+  }
+
+  function handleOk() {
+    onConfirmOrder();
+    setIsConfirmOrderModalVisible(false);
+  }
+
   return (
     <>
+      <OrderConfirmedModal
+        visible={isConfirmOrderModalVisible}
+        onOkPressed={handleOk}
+      />
+
       {thereAreItemsInCart && (
         <FlatList
           data={cartItems}
@@ -94,7 +113,7 @@ export function Cart({ cartItems, handleCartProductsAmount }: CartProps) {
         </TotalContainer>
 
         <Button disabled={!thereAreItemsInCart}
-          onPress={() => alert("confirmar pedido")}
+          onPress={handleConfirmOrder}
         >
           Confirmar pedido
         </Button>
