@@ -6,8 +6,11 @@ import { Button } from "../components/Button";
 import { Cart } from "../components/Cart";
 import { Categories } from "../components/Categories";
 import { Header } from "../components/Header";
+import { Empty } from "../components/Icons/Empty";
 import { Menu } from "../components/Menu";
 import TableModal from "../components/TableModal";
+import { Text } from "../components/Text";
+import { products as MockProducts } from "../mocks/products";
 import {
   Container,
   CategoriesContainer,
@@ -22,6 +25,7 @@ export default function Main() {
   const [selectedTable, setSelectedTable] = useState("");
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>(MockProducts);
 
   function handleSaveTable(table: string) {
     setSelectedTable(table);
@@ -93,9 +97,21 @@ export default function Main() {
               <Categories />
             </CategoriesContainer>
 
-            <MenuContainer>
-              <Menu handleCartProductsAmount={handleCartProductsAmount} />
-            </MenuContainer>
+            {products.length > 0 ? (
+              <MenuContainer>
+                <Menu
+                  products={products}
+                  handleCartProductsAmount={handleCartProductsAmount}
+                />
+              </MenuContainer>
+            ) : (
+              <CenteredContainer>
+                <Empty />
+                <Text color="#666" style={{ marginTop: 24 }}>
+                  Nenhum produto foi encontrado
+                </Text>
+              </CenteredContainer>
+            )}
           </>
         )}
 
