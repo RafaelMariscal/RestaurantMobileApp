@@ -20,10 +20,16 @@ interface ProductModalProps {
   visible: boolean
   onClose: () => void
   product: Product | null
+  handleCartProductsAmount: (product: Product, CartAction: "Add" | "Dec") => void
 }
 
-export default function ProductModal({ visible, onClose, product }: ProductModalProps) {
+export default function ProductModal({ visible, onClose, product, handleCartProductsAmount }: ProductModalProps) {
   if (!product) return null;
+
+  function handleAddToCart() {
+    handleCartProductsAmount(product!, "Add");
+    onClose();
+  }
 
   return (
     <Modal
@@ -67,6 +73,7 @@ export default function ProductModal({ visible, onClose, product }: ProductModal
           </IngredientsCotainer>
         )}
       </ModalBody>
+
       <Footer>
         <FooterContainer>
           <PriceContainer>
@@ -74,7 +81,7 @@ export default function ProductModal({ visible, onClose, product }: ProductModal
             <Text size={20} weight="600">{formatCurrency(product.price)}</Text>
           </PriceContainer>
 
-          <Button onPress={() => alert("Adicionar ao pedido")}>
+          <Button onPress={handleAddToCart}>
             Adicionar ao pedido
           </Button>
 

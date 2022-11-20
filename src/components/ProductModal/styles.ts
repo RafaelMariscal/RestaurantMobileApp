@@ -7,8 +7,8 @@ export const Image = styled.ImageBackground`
 `;
 
 export const CloseButton = styled.TouchableOpacity`
-  width: 32;
-  height:32;
+  width: 32px;
+  height:32px;
   background-color: rgba(0,0,0, 0.5);
   border-radius: 50%;
   align-items: center;

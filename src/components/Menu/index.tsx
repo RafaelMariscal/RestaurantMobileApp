@@ -13,7 +13,12 @@ import {
   Separator,
   AddToCartButton
 } from "./styles";
-export function Menu() {
+
+interface MenuProps {
+  handleCartProductsAmount: (product: Product, cartAction: "Add" | "Dec") => void
+}
+
+export function Menu({ handleCartProductsAmount }: MenuProps) {
   const [isProductModalVisible, setIsProductModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -29,14 +34,16 @@ export function Menu() {
         visible={isProductModalVisible}
         onClose={() => setIsProductModalVisible(false)}
         product={selectedProduct}
+        handleCartProductsAmount={handleCartProductsAmount}
       />
 
       <FlatList
         data={products}
         style={{ marginTop: 32 }}
-        contentContainerStyle={{ paddingHorizontal: 24 }}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 16 }}
         keyExtractor={product => product._id}
         ItemSeparatorComponent={Separator}
+
         renderItem={({ item: product }) => (
           <ProductContainer onPress={() => handleOpenProductModal(product)}>
             <ProductImage
@@ -57,7 +64,7 @@ export function Menu() {
               </Text>
             </ProductDetails>
 
-            <AddToCartButton>
+            <AddToCartButton onPress={() => handleCartProductsAmount(product, "Add")}>
               <PlusCircle />
             </AddToCartButton>
           </ProductContainer>
